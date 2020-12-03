@@ -62,5 +62,3 @@
 #     print(nom ,prenom, "Habite à", ville)
 
 # f(prenom = "Clément", nom = "Maouche")
-
-print(type(range(1,10)))
