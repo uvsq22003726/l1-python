@@ -6,7 +6,6 @@ def afficherCercle():
     y = random.randint(0,hauteurCanvas-diametreCercle)
     tag = c.create_oval(x,y,x+diametreCercle,y+diametreCercle,outline=couleurCercle,fill=couleurCercle)
     objets.append(tag)
-    print(objets)
 
 def afficherCarre():
     x = random.randint(0,largeurCanvas-tailleCarre)
@@ -36,12 +35,9 @@ def undo():
     if(len(objets)>0):
         if c.type(objets[len(objets)-1]) == "line":
             c.delete(objets[len(objets)-1])
-            c.delete(objets[len(objets)-2])
             objets.remove(objets[len(objets)-1])
-            objets.remove(objets[len(objets)-1])
-        else:
-            c.delete(objets[len(objets)-1])
-            objets.remove(objets[len(objets)-1])
+        c.delete(objets[len(objets)-1])
+        objets.remove(objets[len(objets)-1])
 
 
 largeurCanvas, hauteurCanvas = 500,500
