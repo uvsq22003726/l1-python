@@ -58,4 +58,3 @@ c.grid()
 paveHexa(c,0,0,50,15,15)
 
 fen.mainloop()
-
