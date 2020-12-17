@@ -6,7 +6,7 @@ def get_color(r, g, b):
     """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
-def drawPixel(i,j,couleur):
+def drawPixel(i,j,couleur,canvas):
     c.create_rectangle(i,j,i,j,outline=couleur)
 
 def ecran_aleatoire():

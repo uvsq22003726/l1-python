@@ -26,8 +26,15 @@ print(listeNbPairs) """
 
 print(carre_decroissant(8)) """
 
-def crypter(s,n):
+""" def crypter(s,n):
     for i in s:
         print(chr(ord(i)+n))
 
-crypter("abcdefghijklmnopqrstuvxyz",5)
+crypter("abcdefghijklmnopqrstuvxyz",5) """
+
+liste1 = [[3,4],[3,4]]
+u = [3,4]
+liste2 = [u,u]
+liste1[0][0] = 0
+liste2[0][0] = 0
+print(liste1[1][0],liste1[1][0])
