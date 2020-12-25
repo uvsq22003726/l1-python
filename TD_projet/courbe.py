@@ -11,9 +11,9 @@ class Graphique(Toplevel):
         largeurCanvas = 500
         hauteurCanvas = 500
         echelleX = 10
-        echelleY = 25
-        pasGraduationX = 2
-        pasGraduationY = 2
+        echelleY = 7
+        pasGraduationX = 1
+        pasGraduationY = 1
         coordEtiquette = [40,20]
         calculPossible = True
         listePoints = []
@@ -24,6 +24,7 @@ class Graphique(Toplevel):
         c.create_line(0,hauteurCanvas/2,largeurCanvas,hauteurCanvas/2)
         c.create_line(largeurCanvas/2,hauteurCanvas,largeurCanvas/2,0)
         for i in range(0,largeurCanvas+1):
+            
             x = (i - largeurCanvas/2)/(largeurCanvas/echelleX)
             y = 0
             if fonction == 1:
@@ -50,17 +51,19 @@ class Graphique(Toplevel):
             #print("x=",x,"y=","{:.2f}".format(y),"i=","{:.0f}".format(i),"j=","{:.0f}".format(j))
             if calculPossible:
                 listePoints.append([int(i),int(j)])
+                print("x=",x)
             if math.modf(x)[0] == 0 and x%pasGraduationX == 0:
-                c.create_text(i,hauteurCanvas/2+10,text=x)
+                print(x)
+                c.create_text(i-15,hauteurCanvas/2+10,text=x)
                 c.create_line(i,hauteurCanvas/2-5,i,hauteurCanvas/2+5)
-                c.create_line(i,0,i,hauteurCanvas,fill=couleurGrille)
+                if x != 0:
+                    c.create_line(i,0,i,hauteurCanvas,fill=couleurGrille)
         for j in range(0,hauteurCanvas):
             y = (j - hauteurCanvas/2)/(hauteurCanvas/echelleY)
             if math.modf(y)[0] == 0  and y%pasGraduationY == 0 and y != 0:
-                c.create_text(largeurCanvas/2-15,hauteurCanvas-j,text=y)
+                c.create_text(largeurCanvas/2-15,hauteurCanvas-j+10,text=y)
                 c.create_line(largeurCanvas/2-5,hauteurCanvas-j,largeurCanvas/2+5,hauteurCanvas-j)
                 c.create_line(0,hauteurCanvas-j,largeurCanvas,hauteurCanvas-j,fill=couleurGrille)
-        print(listePoints)
         c.create_line(listePoints,fill="red",width=2)
         c.pack()
 fen = Tk() 

@@ -2,16 +2,10 @@ from tkinter import *
 import random
 import math
 
-def hexagone(canvas,x,y,rayon,couleur="white",remplissage="white"):
+def hexagone(canvas,x,y,rayon,couleur="yellow",remplissage="orange",epaisseur=1):
     h = math.sqrt(3)/2*rayon
-    """ canvas.create_line(x,y-rayon,x+h,y-rayon/2,fill=couleur,width=epaisseur)
-    canvas.create_line(x+h,y-rayon/2,x+h,y+rayon/2,fill=couleur,width=epaisseur)
-    canvas.create_line(x+h,y+rayon/2,x,y+rayon,fill=couleur,width=epaisseur)
-    canvas.create_line(x,y+rayon,x-h,y+rayon/2,fill=couleur,width=epaisseur)
-    canvas.create_line(x-h,y+rayon/2,x-h,y-rayon/2,fill=couleur,width=epaisseur)
-    canvas.create_line(x-h,y-rayon/2,x,y-rayon,fill=couleur,width=epaisseur) """
     pts = [(x,y-rayon,x+h,y-rayon/2),(x+h,y-rayon/2,x+h,y+rayon/2),(x+h,y+rayon/2,x,y+rayon),(x,y+rayon,x-h,y+rayon/2),(x-h,y+rayon/2,x-h,y-rayon/2),(x-h,y-rayon/2,x,y-rayon)]
-    canvas.create_polygon(pts,outline=couleur,fill=remplissage)
+    canvas.create_polygon(pts,outline=couleur,fill=remplissage,width=epaisseur)
 
 def figure(canvas,x,y,rayon,couleur="red",epaisseur=5):
     h = math.sqrt(3)/2*rayon
@@ -23,9 +17,9 @@ def get_color(r, g, b):
     """ Retourne une couleur à partir de ses composantes r, g, b entre 0 et 255"""
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
-def paveHexa(canvas,x,y,rayon,nbHexaX,nbHexaY,couleur="green",remplissage="white"):
+def paveHexa(canvas,x,y,rayon,nbHexaX,nbHexaY,couleur="green",remplissage="white",epaisseur=1):
     h = math.sqrt(3)/2*rayon
-    listeCouleurs = ["blue","grey","black"]
+    listeCouleurs = ["green","grey","yellow"]
     for i in range(0,nbHexaX):
         for j in range(0,nbHexaY):
             """ echelleGris = random.randint(0,255)
@@ -38,7 +32,7 @@ def paveHexa(canvas,x,y,rayon,nbHexaX,nbHexaY,couleur="green",remplissage="white
             else:
                 couleur = listeCouleurs[(i+2)%3]
                 remplissage = listeCouleurs[(i+2)%3]
-            hexagone(canvas,x+2*h*i+j%2*h,y+3*rayon/2*j,rayon,couleur,remplissage)
+            hexagone(canvas,x+2*h*i+j%2*h,y+3*rayon/2*j,rayon,couleur,remplissage,epaisseur)
             #c.create_text(x+2*h*i+j%2*h,y+3*rayon/2*j,text=("i=",i,"j=",j))
 
 
@@ -55,6 +49,6 @@ c.grid()
 # hexagone(c,300+87,300+100+100/2,100) """
 # """ paveHexa(c,0,0,150,5,5,epaisseur=1) """
 # hexagone(c,largeur/2,hauteur/2,largeur/4)
-paveHexa(c,0,0,50,15,15)
+paveHexa(c,0,0,50,15,15,couleur="yellow")
 
 fen.mainloop()
