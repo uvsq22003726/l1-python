@@ -19,7 +19,7 @@ def get_color(r, g, b):
 
 def paveHexa(canvas,x,y,rayon,nbHexaX,nbHexaY,couleur="green",remplissage="white",epaisseur=1):
     h = math.sqrt(3)/2*rayon
-    listeCouleurs = ["green","grey","yellow"]
+    listeCouleurs = ["black","white","grey"]
     for i in range(0,nbHexaX):
         for j in range(0,nbHexaY):
             """ echelleGris = random.randint(0,255)

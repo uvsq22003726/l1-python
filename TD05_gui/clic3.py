@@ -11,6 +11,7 @@ def clic(event):
         else:
             couleur = "red"
         c.create_line(points[0][0],points[0][1],x,y,fill=couleur)
+        print("ligne créée entre les points",points)
         points.clear()
 
 largeur = 500
