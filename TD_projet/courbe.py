@@ -5,13 +5,12 @@ from tkinter import *
 import math
   
 class Graphique(Toplevel): 
-    fonction = 1
     def __init__(self, fonction, master = None): 
         super().__init__(master = master)
         largeurCanvas = 500
         hauteurCanvas = 500
         echelleX = 10
-        echelleY = 7
+        echelleY = 10
         pasGraduationX = 1
         pasGraduationY = 1
         coordEtiquette = [40,20]
