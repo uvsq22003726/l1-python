@@ -11,7 +11,7 @@ class Graphique(Toplevel):
         largeurCanvas = 500
         hauteurCanvas = 500
         echelleX = 10
-        echelleY = 7
+        echelleY = 10
         pasGraduationX = 1
         pasGraduationY = 1
         coordEtiquette = [40,20]
@@ -73,6 +73,6 @@ label.pack(side = TOP, pady = 10)
 btn = Button(fen,text ="Click to open a new window") 
 btn.bind("<Button>",lambda e: Graphique(1,fen))
 btn.pack(pady = 10)
-nouvFen = Graphique(1,fen)
+nouvFen = Graphique(3,fen)
 fen.mainloop()
 
