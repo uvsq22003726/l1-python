@@ -9,10 +9,7 @@ def creerFen():
 largeurTexte = 100
 hauteurTexte = 20
 
-f = open("exemple.txt","r")
-print(f.read())
-print(f.read())
-fen = Tk()
+
 fen.title("Premiière fenêtre")
 texte = Text(fen, width=largeurTexte, height=hauteurTexte,bg="yellow")
 texte.insert(END,"ceci est un test")

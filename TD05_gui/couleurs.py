@@ -13,20 +13,20 @@ def ecran_aleatoire():
     for i in range(0,tailleCanvas):
         for j in range(0,tailleCanvas):
             couleurPixel = get_color(random.randint(0,255),random.randint(0,255),random.randint(0,255))
-            drawPixel(i,j,couleurPixel)
+            drawPixel(i,j,couleurPixel,c)
 
 def degrade_gris():
     for i in range(0,tailleCanvas):
         couleurPixel = get_color(i,i,i)
         for j in range(0,tailleCanvas):
-            drawPixel(i,j,couleurPixel)
+            drawPixel(i,j,couleurPixel,c)
 
 
 def degrade_2D():
     for i in range(0,tailleCanvas):
         for j in range(0,tailleCanvas):
             couleurPixel = get_color(i,0,j)
-            drawPixel(i,j,couleurPixel)
+            drawPixel(i,j,couleurPixel,c)
 
 
 tailleCanvas = 256

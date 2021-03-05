@@ -5,7 +5,6 @@ from tkinter import *
 import math
   
 class Graphique(Toplevel): 
-    fonction = 1
     def __init__(self, fonction, master = None): 
         super().__init__(master = master)
         largeurCanvas = 500
