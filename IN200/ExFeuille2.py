@@ -58,6 +58,10 @@ global directionBalleY
 directionBalleY = 2
 largeurCanvas = 600
 hauteurCanvas = 400
+nbCasesX = 20
+nbCasesY = 20
+largeurCase = largeurCanvas/nbCasesX
+hauteurCase = hauteurCanvas/nbCasesY
 
 fen = Tk()
 fen.title("Feuille d'exercices 2")
@@ -67,6 +71,8 @@ boutonDemarrer = Button(fen,text="Démarrer",command=demarrerMouvement,bg="yello
 c.grid(row=0)
 boutonDemarrer.grid(row=1)
 
-
+for i in range(nbCasesX):
+    for j in range(nbCasesY):
+        c.create_rectangle(largeurCase*j,hauteurCase*i,largeurCase*(j+1),hauteurCase*(i+1),outline="yellow")
 
 fen.mainloop()
