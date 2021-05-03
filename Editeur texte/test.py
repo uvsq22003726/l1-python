@@ -1,3 +1,2 @@
-import math
-
-print(math.sqrt(-4))
+s = "a"+str(5)
+print(s)
