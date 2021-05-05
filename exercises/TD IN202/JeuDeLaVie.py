@@ -1,13 +1,15 @@
 import tkinter as tk
+import time
 
 def ChangerCase(event):
     x, y = event.x, event.y
     i,j = y // COTE, x // COTE
+    print("devientVivant("+str(i)+","+str(j)+")")
     if not etatGrille[i][j]:
         devientVivant(i,j)
     else:
         meurt(i,j)
-    #print(nbVoisinsVivants(i,j))
+
 
 
 def devientVivant(x,y):
@@ -25,18 +27,21 @@ def devientVivant(x,y):
 
 def ajouterATester(x,y):
     casesATester.append((x,y))
-    c.itemconfig(listeId[x][y],fill="yellow")
+    #c.itemconfig(listeId[x][y],fill=couleur1)
 
 def supprimerATester(x,y):
     casesATester.remove((x,y))
-    c.itemconfig(listeId[x][y],fill="red")
+    #c.itemconfig(listeId[x][y],fill=couleur2)
 
 
 def meurt(x,y):
     source = listeId[x][y]
     etatGrille[x][y] = False
-    if (x,y) not in casesATester:
+    c.itemconfig(source,fill=COULEURMORT)
+    """ if (x,y) not in casesATester:
         c.itemconfig(source,fill=COULEURMORT)
+    else:
+        c.itemconfig(source,fill=couleur1) """
 
 
 def casesVoisines(i,j):
@@ -84,6 +89,8 @@ def nbVoisinsVivants(i,j):
 
 
 def simuler():
+    global dureeMax
+    tempsDebut = time.time()
     nouvellesCasesVivantes = []
     nouvellesCasesMortes = []
     casesIsolees = []
@@ -91,15 +98,18 @@ def simuler():
         case = casesATester[i]
         x, y = case[0], case[1]
         n = nbVoisinsVivants(x,y)
+
         if not etatGrille[x][y]:
             if n == 3:
                 nouvellesCasesVivantes.append((x,y))
-            else:
+            """ else:
                 if not n:
-                    casesIsolees.append((x,y))
+                    casesIsolees.append((x,y)) """
         else:
             if not (n == 2 or n == 3):
+                
                 nouvellesCasesMortes.append((x,y))
+    
 
     """ for i in range(CASES):
         for j in range(CASES):
@@ -114,15 +124,34 @@ def simuler():
         meurt(case[0],case[1])
     for case in nouvellesCasesVivantes:
         devientVivant(case[0],case[1])
+
+    for i in range(len(casesATester)):
+        case = casesATester[i]
+        x, y = case[0], case[1]
+        n = nbVoisinsVivants(x,y)
+        if not etatGrille[x][y] and not n:
+            casesIsolees.append((x,y))
+    
     for case in casesIsolees:
         supprimerATester(case[0], case[1])
-    print(len(casesATester))
-    print(casesATester,"\n")
+    print("cases à tester:",len(casesATester))
+    """ for case in casesATester:
+        print(case) """
+
+    """ duree = time.time() - tempsDebut
+    dureeMax = max(duree,dureeMax)
+    print("durée simuler",round(dureeMax*1000,3)) """
 
 def simulerAuto():
+    global dureeMax
+    global tempsDebut
     if etatSimulation:
+        tempsDebut = time.time()
         simuler()
+        duree = time.time() - tempsDebut
+        print("durée simuler auto",round(duree*1000))
         fen.after(DELAI,simulerAuto)
+        
 
 
 def activerSimulationAuto():
@@ -138,11 +167,13 @@ def activerSimulationAuto():
 
 
 
-CASES = 35
-COULEURVIVANT = "black"
+CASES = 50
+COULEURVIVANT = "green"
 COULEURMORT = "white"
 couleurGrille = "grey"
-DELAI = 30
+couleur1 = "yellow"
+couleur2 = "grey"
+DELAI = 100
 fonte = ("TkDefaultFont",14)
 etatGrille = [[False]*CASES for i in range(CASES)]
 listeId = [[0]*CASES for i in range(CASES)]
@@ -151,6 +182,9 @@ global etatSimulation
 etatSimulation = False
 couleurSimulerArret = "SystemButtonFace"
 couleurSimulerMarche = "green"
+global dureeMax
+dureeMax = 0
+tempsDebut = 0
 
 
 fen = tk.Tk()
@@ -185,6 +219,26 @@ for i in range(CASES):
 
 c.bind('<Button-1>',ChangerCase)
 
+""" devientVivant(15,14)
+devientVivant(14,14)
+devientVivant(13,14)
+devientVivant(12,14)
+devientVivant(11,14)
+devientVivant(12,13)
+devientVivant(11,13)
+devientVivant(12,15)
+devientVivant(11,15)
+devientVivant(10,14)
+devientVivant(12,12)
+devientVivant(12,16) """
+
+""" devientVivant(35,40)
+devientVivant(36,40)
+devientVivant(34,40)
+devientVivant(34,39)
+devientVivant(34,38)
+devientVivant(36,39)
+devientVivant(36,38) """
 
 fen.mainloop()
 
