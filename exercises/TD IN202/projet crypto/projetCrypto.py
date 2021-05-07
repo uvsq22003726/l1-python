@@ -7,15 +7,18 @@ texte4 = ""
 textes = [texte1,texte2,texte3,texte4]
 listeTextes = ["Texte 1","Texte 2","Texte 3","Texte 4"]
 typesCryptage = ["Code César","Substitution","Décalage avec mot de passe","Inconnu"]
-fonte = ("Helvetica",18)
-fonte2 = ("Helvetica",14)
+fonte = ("Helvetica",14)
+fonte2 = ("Helvetica",10)
 global strTexteDecrypte
 global indexTexte
 texteDefaut = 2
 indexTexte = texteDefaut
+global texteCrypte
 texteCrypte = textes[texteDefaut]
 strTexteDecrypte = texteCrypte
-print(texteCrypte)
+largeurTexte = 500
+##print(texteCrypte)
+
 
 
 def frequence(texte):
@@ -52,7 +55,9 @@ def frequence2(texte):
 
 def substituer(texteInitial,texteAModifier,a,b):
     resultat = ""
+    ##print(len(texteInitial))
     for i in range(len(texteInitial)):
+        ##print(i)
         if texteInitial[i] == a:
             resultat += b
         else:
@@ -61,13 +66,13 @@ def substituer(texteInitial,texteAModifier,a,b):
 
 
 def decrypterCesar(texte, cle):
-    print(cle)
+    ##print(cle)
     resultat = []
     n = 0
     i = 0
     while len(resultat) != len(texte):
         rang = ord(texte[i]) - 97
-        rangCle = ord(cle[n%len(cle)]) -97
+        rangCle = ord(cle[i%len(cle)]) -97
         if 0 <= rang <= 25:
             resultat.append(chr((rang+rangCle)%26+97))
             n += 1
@@ -81,17 +86,18 @@ def genererCle(mot1,mot2):
     for i in range(len(min(mot1,mot2))):
         rang1 = ord(mot1[i])-97
         rang2 = ord(mot2[i])-97
-        print(rang1,rang2)
+        ##print(rang1,rang2)
         if 0 <= rang1 < 26 and 0 <= rang2 < 26:
             cle.append(chr((rang2-rang1)%26+97))
-        #print((rang2-rang1)%26)
-    #print("clé: ",cle)
+        ###print((rang2-rang1)%26)
+    ###print("clé: ",cle)
+    print(cle)
     return "".join(cle)
 
 
 def afficherResultat():
     global strTexteDecrypte
-    
+    ##print(texteCrypte)
     mot1 = champ1.get()
     mot2= champ2.get()
     if typesCryptage[indexTexte] == typesCryptage[0] or typesCryptage[indexTexte] == typesCryptage[2]:
@@ -102,22 +108,27 @@ def afficherResultat():
         texteDecrypte.config(text=decrypterCesar(texteCrypte, cle))
     elif typesCryptage[indexTexte] == typesCryptage[1]:
         if len(mot1) == len(mot2):
-            champ1.delete(0)
-            champ2.delete(0)
+            while len(champ1.get()):
+                champ1.delete(0)
+            while len(champ2.get()):
+                champ2.delete(0)
             for i in range(len(mot1)):
                 strTexteDecrypte = substituer(texteCrypte,strTexteDecrypte, mot1[i], mot2[i])
+            ##print(strTexteDecrypte)
             texteDecrypte.config(text=strTexteDecrypte)
 
 
 def changerTexte(e):
-    global indexTexte, texteCrypte
+    global indexTexte, texteCrypte, strTexteDecrypte
     if len(choixTexte.curselection()):
         
         indexTexte = listeTextes.index(choixTexte.get(choixTexte.curselection()))
         texteCrypte = textes[indexTexte]
+        strTexteDecrypte = texteCrypte
         labelTypeCryptage.config(text=typesCryptage[indexTexte])
         msgTexteCrypte.config(text=texteCrypte)
         labelFreq.config(text=affichageFreq(texteCrypte))
+        ##print(len(texteCrypte))
 
 
 def affichageFreq(texte):
@@ -147,8 +158,8 @@ fen.title("Projet cryptographie")
 panneauGauche = tk.Frame(fen)
 panneauCentral = tk.Frame(fen)
 
-msgTexteCrypte = tk.Message(panneauCentral,text=texteCrypte,relief="groove",font=fonte,width=1200)
-texteDecrypte = tk.Message(panneauCentral,relief="groove",font=fonte,width=1400)
+msgTexteCrypte = tk.Message(panneauCentral,text=texteCrypte,relief="groove",font=fonte,width=largeurTexte)
+texteDecrypte = tk.Message(panneauCentral,relief="groove",font=fonte,width=largeurTexte)
 choixTexte = tk.Listbox(panneauGauche,font=fonte2)
 for t in listeTextes:
     choixTexte.insert(tk.END,t)
@@ -175,26 +186,45 @@ boutonCorresp.grid(row=1,column=1)
 
 panneauGauche.grid(row=0,column=0)
 panneauCentral.grid(row=0,column=1)
-#print(decrypterCesar(texteCrypte, 1))
-print("\n")
+###print(decrypterCesar(texteCrypte, 1))
+##print("\n")
 """ cle = input()
-print(decrypterCesar(texteCrypte, cle)) """
+##print(decrypterCesar(texteCrypte, cle)) """
 
 segments = decouper(texteCrypte, 5)
 """ for seg in segments:
-    print(affichageFreq(seg))
-print("test",affichageFreq("bateau")) """
+    ##print(affichageFreq(seg))
+##print("test",affichageFreq("bateau")) """
 
-print(len(texteCrypte))
+##print(len(texteCrypte))
 for i in range(1,22):
-    print(i,"segments de",len(texteCrypte)/i,"lettres")
+    ##print(i,"segments de",len(texteCrypte)/i,"lettres")
     somme = 0
     for seg in decouper(texteCrypte,i):
-        print(frequence(seg)[0])
+        ##print(frequence(seg)[0])
         somme += frequence(seg)[0][1]
-    print("Somme /nbr de seg",somme/i)
+    ##print("Somme /nbr de seg",somme/i)
+print(len(texteCrypte))
 
-for i in range(1,50):
-    if not 168%i:
-        print(i)
+def afficherPortions(texte):
+    t = [caract for caract in texte]
+    for i in range(14):
+        portion = t[i*12:(i+1)*12]
+        echelle = ""
+        strPortion = ""
+        for j in range(len(portion)):
+            echelle = echelle +str(j)+"  "
+            if portion[j] == " ":
+                strPortion = strPortion + "_" + "  "
+            else:
+                strPortion = strPortion + portion[j] + "  "
+        print(echelle)
+        print(strPortion+"\n")
+
+t = decrypterCesar(texteCrypte,"ypwb")
+print(t)
+afficherPortions(t)
+print(genererCle("h","i"))
+
+
 #fen.mainloop()
